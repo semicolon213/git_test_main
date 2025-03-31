@@ -3,8 +3,8 @@
 # 커밋 메시지 입력 받기
 read -p "커밋 메시지를 입력하세요: " commit_message
 
-# 사용 가능한 브랜치 목록을 가져오기
-branches=$(git branch -r | sed 's/origin\///')
+# 사용 가능한 로컬 브랜치 목록을 가져오기
+branches=$(git branch --list | sed 's/^[* ]*//')
 
 # 브랜치 번호로 목록 보여주기
 PS3="선택할 브랜치 번호를 입력하세요: "
