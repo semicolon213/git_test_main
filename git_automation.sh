@@ -3,22 +3,6 @@
 # 작업 로그 초기화ㄴㅇㄹㄴㅇㄹㄴㅇㄹ
 log="\n--------작업로그--------\n\n"
 
-# 서브레포지토리 목록 가져오기 (서브모듈 사용 시)
-submodules=$(git submodule foreach --quiet 'echo $name')
-
-# 서브레포지토리 목록 번호로 선택
-if [[ -n "$submodules" ]]; then
-  PS3="선택할 서브레포지토리 번호를 입력하세요 : "
-  select submodule in $submodules; do
-    if [[ -n "$submodule" ]]; then
-      log+="서브레포지토리: $submodule\n"
-      break
-    else
-      echo "유효하지 않은 선택입니다. 다시 시도하세요."
-    fi
-  done
-fi
-
 # 사용 가능한 로컬 브랜치 목록을 가져오기
 branches=$(git branch --list | sed 's/^[* ]*//')
 
