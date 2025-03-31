@@ -23,9 +23,11 @@ modified_files=$(git status --porcelain | grep '^[ M]' | wc -l)
 # 새 파일이 있으면 git add .
 if [[ "$new_files" -gt 0 ]]; then
   add_option="."
+  echo "새 파일이 있어 git add . 을 사용합니다."
 # 수정된 파일만 있으면 git add -u
 elif [[ "$modified_files" -gt 0 ]]; then
   add_option="-u"
+  echo "수정된 파일만 있어 git add -u 을 사용합니다."
 fi
 
 # 선택한 옵션으로 파일 추가
