@@ -16,8 +16,20 @@ select branch_name in $branches; do
   fi
 done
 
-# 현재 디렉토리에서 변경된 파일을 git에 추가
-git add .
+# 새 파일 또는 수정된 파일 확인
+new_files=$(git status --porcelain | grep '??' | wc -l)
+modified_files=$(git status --porcelain | grep '^[ M]' | wc -l)
+
+# 새 파일이 있으면 git add .
+if [[ "$new_files" -gt 0 ]]; then
+  add_option="."
+# 수정된 파일만 있으면 git add -u
+elif [[ "$modified_files" -gt 0 ]]; then
+  add_option="-u"
+fi
+
+# 선택한 옵션으로 파일 추가
+git add $add_option
 
 # 입력한 커밋 메시지로 커밋
 git commit -m "$commit_message"
