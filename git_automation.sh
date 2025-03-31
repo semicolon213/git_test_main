@@ -4,7 +4,7 @@
 log="--------작업로그--------\n"
 
 # 작업 선택: push 또는 pull
-PS3="선택할 작업을 입력하세요: "
+PS3="선택할 작업을 입력하세요 (1: push, 2: pull): "
 options=("push" "pull")
 select operation in "${options[@]}"; do
   if [[ "$operation" == "push" || "$operation" == "pull" ]]; then
@@ -16,14 +16,14 @@ select operation in "${options[@]}"; do
 done
 
 # 커밋 메시지 입력 받기
-read -p "커밋 메시지를 입력하세요: " commit_message
+read -p "커밋 메시지를 입력하세요 (3): " commit_message
 log+="커밋 메시지 입력: $commit_message\n"
 
 # 사용 가능한 로컬 브랜치 목록을 가져오기
 branches=$(git branch --list | sed 's/^[* ]*//')
 
 # 브랜치 번호로 목록 보여주기
-PS3="선택할 브랜치 번호를 입력하세요: "
+PS3="선택할 브랜치 번호를 입력하세요 (1): "
 select branch_name in $branches; do
   if [[ -n "$branch_name" ]]; then
     log+="선택된 브랜치: $branch_name\n"
