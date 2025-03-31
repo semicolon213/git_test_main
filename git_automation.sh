@@ -3,8 +3,8 @@
 # 작업 로그 초기화ㄴㅇㄹㄴㅇㄹㄴㅇㄹ
 log="\n--------작업로그--------\n\n"
 
-# 서브레포지토리 또는 서브트리 목록 가져오기 (서브모듈 사용 시)
-submodules=$(git submodule | awk '{print $2}')
+# 서브레포지토리 목록 가져오기 (서브모듈 사용 시)
+submodules=$(git submodule foreach --quiet 'echo $name')
 
 # 서브레포지토리 목록 번호로 선택
 if [[ -n "$submodules" ]]; then
