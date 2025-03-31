@@ -11,23 +11,9 @@ fi
 # 작업 로그 초기화
 log="\n--------작업로그--------\n\n"
 
-# 사용 가능한 로컬 브랜치 목록 가져오기
-if [[ "$os_type" == "windows" ]]; then
-    branches=$(git branch --list)
-else
-    branches=$(git branch --list | sed 's/^[* ]*//')
-fi
-
-# 브랜치 선택
-echo "사용 가능한 브랜치 목록:"
-select branch_name in $branches; do
-  if [[ -n "$branch_name" ]]; then
-    log+="브랜치: $branch_name\n"
-    break
-  else
-    echo "유효하지 않은 선택입니다. 다시 시도하세요."
-  fi
-done
+# 브랜치 이름 직접 지정
+branch_name="main"  # 여기에서 사용할 브랜치 이름을 입력하세요
+log+="브랜치: $branch_name\n"
 
 # 선택한 브랜치에서 최신 코드 가져오기
 git pull origin "$branch_name"

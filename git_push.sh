@@ -1,5 +1,9 @@
 #!/bin/bash
 
+# 작업 디렉토리 설정 (현재 스크립트가 위치한 디렉토리로 설정)
+work_dir="$(cd "$(dirname "$0")" && pwd)"  # 스크립트 파일의 디렉토리
+cd "$work_dir" || { echo "작업 디렉토리로 이동할 수 없습니다: $work_dir"; exit 1; }
+
 # OS 감지
 os_type="unknown"
 if [[ "$OSTYPE" == "msys" || "$OSTYPE" == "cygwin" || "$OSTYPE" == "win32" ]]; then
