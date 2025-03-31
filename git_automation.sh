@@ -3,10 +3,6 @@
 # 작업 로그 초기화
 log="--------작업로그--------\n"
 
-# 커밋 메시지 입력 받기
-read -p "커밋 메시지를 입력하세요: " commit_message
-log+="커밋 메시지 입력: $commit_message\n"
-
 # 작업 선택: push 또는 pull
 PS3="선택할 작업을 입력하세요: "
 options=("push" "pull")
@@ -18,6 +14,10 @@ select operation in "${options[@]}"; do
     echo "유효하지 않은 선택입니다. 다시 시도하세요."
   fi
 done
+
+# 커밋 메시지 입력 받기
+read -p "커밋 메시지를 입력하세요: " commit_message
+log+="커밋 메시지 입력: $commit_message\n"
 
 # 사용 가능한 로컬 브랜치 목록을 가져오기
 branches=$(git branch --list | sed 's/^[* ]*//')
