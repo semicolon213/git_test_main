@@ -7,6 +7,18 @@ log="--------작업로그--------\n"
 read -p "커밋 메시지를 입력하세요: " commit_message
 log+="커밋 메시지 입력: $commit_message\n"
 
+# 작업 선택: push 또는 pull
+PS3="선택할 작업을 입력하세요: "
+options=("push" "pull")
+select operation in "${options[@]}"; do
+  if [[ "$operation" == "push" || "$operation" == "pull" ]]; then
+    log+="선택된 작업: $operation\n"
+    break
+  else
+    echo "유효하지 않은 선택입니다. 다시 시도하세요."
+  fi
+done
+
 # 사용 가능한 로컬 브랜치 목록을 가져오기
 branches=$(git branch --list | sed 's/^[* ]*//')
 
@@ -35,17 +47,22 @@ elif [[ "$modified_files" -gt 0 ]]; then
   log+="수정된 파일만 있어 git add -u 을 사용합니다.\n"
 fi
 
-# 선택한 옵션으로 파일 추가
+# 파일 추가
 git add $add_option
 log+="파일 추가 완료: git add $add_option\n"
 
-# 입력한 커밋 메시지로 커밋
+# 커밋
 git commit -m "$commit_message"
 log+="커밋 완료: $commit_message\n"
 
-# 선택한 브랜치로 푸시
-git push origin "$branch_name"
-log+="푸시 완료: $branch_name\n"
+# 선택된 작업 수행 (push 또는 pull)
+if [[ "$operation" == "push" ]]; then
+  git push origin "$branch_name"
+  log+="푸시 완료: $branch_name\n"
+elif [[ "$operation" == "pull" ]]; then
+  git pull origin "$branch_name"
+  log+="풀 완료: $branch_name\n"
+fi
 
 # 작업 로그 출력
 echo -e "$log"
