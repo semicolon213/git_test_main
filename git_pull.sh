@@ -1,4 +1,7 @@
 #!/bin/bash
+# tnwlalsjkdf;lasdkjg;klasdj;gl
+
+
 
 # 작업 디렉토리 설정 (현재 스크립트가 위치한 디렉토리로 설정)
 work_dir="$(cd "$(dirname "$0")" && pwd)"  # 스크립트 파일의 디렉토리
